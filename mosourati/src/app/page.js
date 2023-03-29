@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MosouratiNavBar from "@/components/MosouratiNavBar";
+import MosouratiNavBar from "@/app/components/MosouratiNavBar";
 import Container from "react-bootstrap/Container";
 
 export default function Home() {
