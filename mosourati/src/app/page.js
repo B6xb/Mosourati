@@ -1,15 +1,18 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "./page.module.css";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import React from "react";
+import MosouratiNavBar from "@/components/MosouratiNavBar";
+import Container from "react-bootstrap/Container";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-3xl">
-        My name is <strong>Bander !!!</strong>
-      </h1>
+    <main className="flex flex-row">
+      <MosouratiNavBar />
+      <Container>
+        <h1 className="">
+          My name is <strong>Bander !!!</strong>
+        </h1>
+      </Container>
     </main>
   );
 }
