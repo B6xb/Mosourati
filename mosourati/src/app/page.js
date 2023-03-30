@@ -1,9 +1,9 @@
 import React from "react";
 import MosouratiNavBar from "@/app/components/MosouratiNavBar";
-import { connectToDatabase } from "./utils/db";
+// import { connectToDatabase } from "./utils/db";
 
 export default function Home() {
-  connectToDatabase();
+  // connectToDatabase();
   return (
     <main className="flex flex-row ">
       <nav className="basis-1/3">
