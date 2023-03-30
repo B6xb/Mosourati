@@ -1,17 +1,37 @@
-import { Nav, Navbar, Container } from "react-bootstrap";
+"use client";
 
-const MosouratiNavBar = () => {
+import "../styles/index.css";
+
+import SidebarMenu from "react-bootstrap-sidebar-menu";
+
+const MosouratiNavBar = (props) => {
   return (
-    <Navbar className="basis-1/3 flex flex-row">
-      <Container className="align-middle">
-        <Navbar.Brand href="#home">Bander Almutairi</Navbar.Brand>
-        <Nav>
-          <Nav.Item>
-            <Nav.Link>default</Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </Container>
-    </Navbar>
+    <SidebarMenu className="sidebar flex items-center">
+      <SidebarMenu.Body>
+        <SidebarMenu.Nav>
+          <SidebarMenu.Nav.Link>
+            <SidebarMenu.Nav.Icon className="sideBarIcon pr-[10px]">
+              B
+            </SidebarMenu.Nav.Icon>
+            <SidebarMenu.Nav.Title>Bander Mutairi</SidebarMenu.Nav.Title>
+          </SidebarMenu.Nav.Link>
+        </SidebarMenu.Nav>
+        <SidebarMenu.Sub>
+          <SidebarMenu.Sub.Toggle>
+            <SidebarMenu.Nav.Icon />
+            <SidebarMenu.Nav.Title>Recent</SidebarMenu.Nav.Title>
+          </SidebarMenu.Sub.Toggle>
+          <SidebarMenu.Sub.Collapse>
+            <SidebarMenu.Nav>
+              <SidebarMenu.Nav.Link>
+                <SidebarMenu.Nav.Icon>Personal</SidebarMenu.Nav.Icon>
+                <SidebarMenu.Nav.Title>Commission</SidebarMenu.Nav.Title>
+              </SidebarMenu.Nav.Link>
+            </SidebarMenu.Nav>
+          </SidebarMenu.Sub.Collapse>
+        </SidebarMenu.Sub>
+      </SidebarMenu.Body>
+    </SidebarMenu>
   );
 };
 

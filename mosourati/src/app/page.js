@@ -1,18 +1,19 @@
-"use client";
-
 import React from "react";
 import MosouratiNavBar from "@/app/components/MosouratiNavBar";
-import Container from "react-bootstrap/Container";
+import { connectToDatabase } from "./utils/db";
 
 export default function Home() {
+  connectToDatabase();
   return (
-    <main className="flex flex-row">
-      <MosouratiNavBar />
-      <Container>
+    <main className="flex flex-row ">
+      <nav className="basis-1/3">
+        <MosouratiNavBar />
+      </nav>
+      <section>
         <h1 className="">
           My name is <strong>Bander !!!</strong>
         </h1>
-      </Container>
+      </section>
     </main>
   );
 }
