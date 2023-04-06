@@ -1,9 +1,9 @@
-import styles from "./styles/page.module.css";
+import TopSection from "./components/topSection";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div>Bander</div>
+    <main className="pl-[300px] container">
+      <TopSection />
     </main>
   );
 }
