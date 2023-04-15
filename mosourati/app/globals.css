@@ -23,9 +23,9 @@ a {
 
 @layer components {
   .navLogo {
-    @apply text-2xl font-bold hover:-translate-y-0.5;
+    @apply text-2xl font-bold hover:-translate-y-0.5 transition-all duration-300;
   }
   .navRoutes {
-    @apply relative flex items-center justify-center h-12 w-20 mt-2 mb-2 mx-auto shadow-transparent text-primray hover:-translate-y-0.5;
+    @apply relative flex items-center justify-center h-12 w-20 mt-2 mb-2 mx-auto shadow-transparent text-primray hover:-translate-y-0.5 transition-all duration-300;
   }
 }
