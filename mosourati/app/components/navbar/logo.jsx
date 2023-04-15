@@ -7,7 +7,7 @@ const Logo = () => {
 
   return (
     <div className="py-[50px]">
-      <p className="text-2xl font-bold">"User Name"</p>
+      <p className="navLogo">"User Name"</p>
     </div>
   );
 };

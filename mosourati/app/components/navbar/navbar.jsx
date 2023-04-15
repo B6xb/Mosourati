@@ -4,7 +4,7 @@ import Content from "./content";
 
 const Navbar = () => {
   return (
-    <div className="fixed w-[300px] h-screen flex flex-col items-center justify-center">
+    <div className="fixed top-0 left-0 w-[300px] m-0 h-screen flex flex-col items-center justify-center shadow-sm">
       <Container>
         <Logo />
         <Content />

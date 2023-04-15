@@ -2,11 +2,16 @@ import React from "react";
 
 const Content = () => {
   return (
-    <div className="flex flex-col justify-between h-[100px]">
-      <p>Recent</p>
-      <p>Personal</p>
+    <div>
+      <NavRoutes route="Recents" />
+      <NavRoutes route="Personal" />
     </div>
   );
+};
+
+// Routes component for Navbar
+const NavRoutes = ({ route }) => {
+  return <div className="navRoutes">{route}</div>;
 };
 
 export default Content;
