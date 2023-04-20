@@ -4,10 +4,10 @@ import Link from "next/link";
 const Content = () => {
   return (
     <div>
-      <Link href="/api/recents">
+      <Link href="/user/recents">
         <NavRoutes route="Recents" />
       </Link>
-      <Link href="/api/personal">
+      <Link href="/user/personal">
         <NavRoutes route="Personal" />
       </Link>
     </div>

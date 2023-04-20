@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link href="/">
       <div className="py-[50px]">
-        <p className="navLogo">"User Name"</p>
+        <p className="navLogo">User Name</p>
       </div>
     </Link>
   );
