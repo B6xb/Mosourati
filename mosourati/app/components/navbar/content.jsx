@@ -1,10 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
 const Content = () => {
   return (
     <div>
-      <NavRoutes route="Recents" />
-      <NavRoutes route="Personal" />
+      <Link href="/api/recents">
+        <NavRoutes route="Recents" />
+      </Link>
+      <Link href="/api/personal">
+        <NavRoutes route="Personal" />
+      </Link>
     </div>
   );
 };

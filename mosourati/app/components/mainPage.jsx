@@ -2,6 +2,7 @@
 
 import Navbar from "./navbar/navbar";
 import { Col, Row } from "react-bootstrap";
+import TopSection from "./topSection";
 
 const MainPage = (props) => {
   const children = props.children;
@@ -10,7 +11,10 @@ const MainPage = (props) => {
       <Col>
         <Navbar />
       </Col>
-      <Col>{children}</Col>
+      <Col className="pl-[300px] container">
+        <TopSection />
+        {children}
+      </Col>
     </Row>
   );
 };
