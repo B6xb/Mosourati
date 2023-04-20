@@ -6,12 +6,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    darkMode: "class",
     extend: {
       colors: {
-        bgPrimary: "#fff8ede3",
+        bgPrimary: "#F3F1F2",
         bgSecondary: "#ffdfd3c3",
         bgThird: "#ffd0b8a8",
-        primray: "#481d0e",
+        primray: "#1B1B1B",
+        hovering: "#A17757",
       },
     },
   },
