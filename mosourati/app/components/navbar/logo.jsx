@@ -1,14 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Logo = () => {
-  const router = useRouter();
-
   return (
-    <div className="py-[50px]">
-      <p className="navLogo">"User Name"</p>
-    </div>
+    <Link href="/">
+      <div className="py-[50px]">
+        <p className="navLogo">User Name</p>
+      </div>
+    </Link>
   );
 };
 

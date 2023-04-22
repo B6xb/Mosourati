@@ -1,9 +1,6 @@
-import TopSection from "./components/topSection";
+import dbConnect from "@/utils/db";
 
 export default function Home() {
-  return (
-    <main className="pl-[300px] container">
-      <TopSection />
-    </main>
-  );
+  dbConnect();
+  return <main>{}</main>;
 }

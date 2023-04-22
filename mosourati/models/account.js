@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, mongoose } from "mongoose";
 import validator from "validator";
 
 const accountSchema = new Schema({
