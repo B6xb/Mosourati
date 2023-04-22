@@ -6,9 +6,9 @@ export async function GET(request) {
 
     // const account = await Account.find(res.username);
 
-    return new Response.json({ res }, { status: 200 });
+    return Response.json(res, { status: 200 });
   } catch (error) {
-    return new Response("GET Error!", { status: 400, success: false });
+    return new Response(error, { status: 400, success: false });
   }
 }
 
@@ -26,7 +26,13 @@ export async function GET(request) {
 // }
 
 export async function POST(request) {
-  const res = await request.json();
-  console.log(res.username);
-  return Response.json({ res }, { status: 200 });
+  try {
+    const res = await request.json();
+    // const account = await Account.create(res.body);
+
+    // console.log(account);
+    return Response.json(res, { status: 200 });
+  } catch (error) {
+    return new Response(error, { status: 400, success: false });
+  }
 }
