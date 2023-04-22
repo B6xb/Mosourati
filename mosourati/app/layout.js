@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${font.className} bg-bgPrimary text-primray `}>
-        <MainPage>{children}</MainPage>
+        <MainPage children={children} />
       </body>
     </html>
   );
