@@ -14,4 +14,7 @@ a {
   .navRoutes {
     @apply relative flex items-center justify-center h-12 w-20 mt-2 mb-2 mx-auto shadow-transparent hover:-translate-y-0.5 transition-all duration-300 hover:text-hovering;
   }
+  .photoHeader {
+    @apply text-center font-extrabold;
+  }
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import Navbar from "./sidebar/navbar";
+import Navbar from "../sidebar/navbar";
 import { Col, Row } from "react-bootstrap";
-import TopSection from "./upperSection/topSection";
+import TopSection from "../upperSection/topSection";
 
 const MainPage = (props) => {
   const children = props.children;

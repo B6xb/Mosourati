@@ -1,5 +1,5 @@
 import "./globals.css";
-import MainPage from "./components/mainPage";
+import MainPage from "./components/body/bodyContent";
 import { Nunito } from "next/font/google";
 
 export const metadata = {
