@@ -1,15 +1,20 @@
 import Account from "../../../models/account";
 
 export async function GET(request) {
-  try {
-    const res = await request.json();
+  const res = await request.json();
 
-    // const account = await Account.find(res.username);
+  // const account = await Account.find(res.username);
+  console.log(res);
 
-    return Response.json(res, { status: 200 });
-  } catch (error) {
-    return new Response(error, { status: 400, success: false });
-  }
+  // try {
+  //   const res = await request.json();
+
+  //   // const account = await Account.find(res.username);
+  //   console.log(res);
+  //   return new Response(res, { status: 200 });
+  // } catch (error) {
+  //   return new Response(error, { status: 400, success: false });
+  // }
 }
 
 // export async function POST(req) {
