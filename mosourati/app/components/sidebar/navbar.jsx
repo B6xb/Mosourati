@@ -1,12 +1,21 @@
+"use client";
+
 import Container from "./container";
 import Logo from "./logo";
+import { signIn, useSession } from "next-auth/react";
 import Content from "./content";
 
 const Navbar = () => {
+  let name = "Log In";
+  const { data: session } = useSession();
+  if (session) {
+    name = "Logged In";
+  } else {
+  }
   return (
-    <div className="fixed top-0 left-0 w-[300px] m-0 h-screen flex flex-col items-center justify-center shadow-sm">
+    <div className="sideBar">
       <Container>
-        <Logo />
+        <Logo onClick={signIn} name={name} />
         <Content />
       </Container>
     </div>

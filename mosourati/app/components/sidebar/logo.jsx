@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 
-const Logo = () => {
+const Logo = (props) => {
+  const { name, onClick } = props;
   return (
-    <Link href="/">
-      <div className="py-[50px]">
-        <p className="navLogo">User Name</p>
-      </div>
-    </Link>
+    // <Link href={route}>
+    <div className="py-[50px]" onClick={onClick}>
+      <p className="navLogo">{name}</p>
+    </div>
+    // </Link>
   );
 };
 
