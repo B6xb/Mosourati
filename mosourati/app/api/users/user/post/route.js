@@ -1,36 +1,34 @@
-import User from "../../../../models/user";
+import Post from "../../../../../models/post";
 import dbConnect from "@/utils/db";
 
-// Getting a user
+// Reading a post
 export async function GET(request) {
   try {
     await dbConnect();
     const { searchParams } = new URL(request.url);
 
-    console.log(searchParams);
     const data = searchParams;
 
-    const email = data.get("email");
-    const password = data.get("password");
+    const id = data.get("id");
 
-    const user = await User.find({ email: email });
+    const post = await Post.find({ id: id });
 
-    if (!user) {
-      console.log("There is no User with that email");
+    if (!post) {
+      console.log("There is no Post with that ID");
     } else {
-      return new Response(`${user}`, { status: 200 });
+      return new Response(`${post}`, { status: 200 });
     }
   } catch (error) {
     return new Response(error, { status: 400, success: false });
   }
 }
 
-// Creating a user
+// Creating a post
 export async function POST(request) {
   try {
     await dbConnect();
     const res = await request.json();
-    const newUser = await User.create(res);
+    const newPost = Post.create(res);
 
     return Response.json(res, { status: 200 });
   } catch (error) {

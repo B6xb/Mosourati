@@ -1,46 +1,123 @@
 "use client";
-import { Container, Row, Col } from "react-bootstrap";
-import { useRef } from "react";
-import { useSession, signOut, signIn } from "next-auth/react";
 
-const LoginPage = () => {
-  const email = useRef("");
-  const password = useRef("");
+import axios from "axios";
+import { useCallback, useState } from "react";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import Input from "../components/input/input";
+
+const Auth = () => {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [variant, setVariant] = useState("login");
+
+  const toggleVariant = useCallback(() => {
+    setVariant((currentVariant) =>
+      currentVariant === "login" ? "register" : "login"
+    );
+  }, []);
 
   const { data: session } = useSession();
 
-  const onSubmit = async () => {
-    const res = await fetch(
-      `https://localhost:3000/users/user?email=${email}&password=${password}`
-    );
-  };
+  if (session) {
+    router.push("/");
+    return null;
+  }
+
+  const login = useCallback(async () => {
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      router.push("/profiles");
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, password, router]);
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        name,
+        password,
+      });
+
+      login();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, name, password, login]);
+
   return (
-    <Container>
-      <Col className=" flex flex-col items-center ">
-        <InputComp placeholder="Mosourati@mosourati.sa" label="Email" />
-        <InputComp placeholder="*******" label="Password" />
+    <div className="flex justify-center h-screen">
+      <div className=" p-16 self-center lg:w-2/5 lg:max-w-md rounded-md w-full">
+        <h2 className=" text-4xl mb-8 font-semibold">
+          {variant === "login" ? "Sign in" : "Register"}
+        </h2>
+        <div className="flex flex-col gap-4">
+          {variant === "register" && (
+            <Input
+              id="name"
+              type="text"
+              label="Username"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          )}
+          <Input
+            id="email"
+            type="email"
+            label="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            id="password"
+            label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
         <button
-          className="bg-white border-grey px-[10px] text-sm rounded-md mt-[10px]"
-          onClick={onSubmit()}
+          onClick={variant === "login" ? login : register}
+          className="bg-bgThird py-3 rounded-md w-full mt-10 hover:bg-hovering hover:text-bgPrimary"
         >
-          Sign In
+          {variant === "login" ? "Login" : "Sign up"}
         </button>
-      </Col>
-    </Container>
+        <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+          <div
+            onClick={() => signIn("google", { callbackUrl: "/profiles" })}
+            className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+          >
+            <FcGoogle size={32} />
+          </div>
+        </div>
+        <p className="text-neutral-500 mt-12">
+          {variant === "login"
+            ? "First time using Mosourati?"
+            : "Already have an account?"}
+          <span
+            onClick={toggleVariant}
+            className="text-primray ml-1 hover:underline cursor-pointer"
+          >
+            {variant === "login" ? "Create an account" : "Login"}
+          </span>
+          .
+        </p>
+      </div>
+    </div>
   );
 };
 
-const InputComp = (props) => {
-  const { label, placeholder } = props;
-  return (
-    <Row>
-      <label htmlFor="">{label} </label>
-      <input
-        className="border-[1px] border-grey rounded-sm text-xs w-[200px] h-[20px]"
-        placeholder={placeholder}
-      />
-    </Row>
-  );
-};
-
-export default LoginPage;
+export default Auth;

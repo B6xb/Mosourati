@@ -1,45 +1,81 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
+import GoogleProvider from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import prismadb from "@/lib/prismadb";
+import { compare } from "bcrypt";
 
 export default NextAuth({
   providers: [
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const { username, password } = credentials;
-        const res = await fetch("http://localhost:3000/auth/login", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        });
-        const user = await res.json();
+    // OAuth authentication providers...
 
-        if (res.ok && user) {
-          return user;
-        } else {
-          return null;
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
+    Credentials({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        },
+      },
+      async authorize(credentials) {
+        // check if email and password are entered
+        if (credentials?.email || credentials?.password) {
+          throw new Error("Email and password are required");
         }
+
+        // find the user in the db
+        const user = await prismadb.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        // check if the user is a valid user
+        if (!user || !user.hashedPassword) {
+          throw new Error("Email does not exist");
+        }
+
+        // compare the hashedpassword to the given one
+        const isCorrectPassword = await compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        // check if it is correct password
+        if (!isCorrectPassword) {
+          throw new Error("incorrect password");
+        }
+
+        // return the user
+        return user;
       },
     }),
   ],
-  // adapter: MongoDBAdapter(clientPromise),
 
   pages: {
     signIn: "/auth",
   },
+
+  debug: process.env.NODE_ENV === "development",
+
+  session: {
+    strategy: "jwt",
+  },
+
+  jwt: {
+    secret: process.env.NEXTAUTH_JWT_SECRET,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+
+  adapter: MongoDBAdapter(clientPromise),
 });
