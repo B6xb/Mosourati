@@ -1,4 +1,4 @@
-import User from "../../../../models/user";
+import Account from "../../../../models/account";
 import dbConnect from "@/utils/db";
 
 // Getting a user
@@ -7,13 +7,9 @@ export async function GET(request) {
     await dbConnect();
     const { searchParams } = new URL(request.url);
 
-    console.log(searchParams);
-    const data = searchParams;
+    const account = searchParams.get("email");
 
-    const email = data.get("email");
-    const password = data.get("password");
-
-    const user = await User.find({ email: email });
+    const user = await Account.find({ email: account });
 
     if (!user) {
       console.log("There is no User with that email");
@@ -30,7 +26,7 @@ export async function POST(request) {
   try {
     await dbConnect();
     const res = await request.json();
-    const newUser = await User.create(res);
+    const account = await Account.create(res);
 
     return Response.json(res, { status: 200 });
   } catch (error) {

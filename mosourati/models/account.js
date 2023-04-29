@@ -1,7 +1,7 @@
 import { Schema, model, models, mongoose } from "mongoose";
 import validator from "validator";
 
-const userSchema = new Schema({
+const accountSchema = new Schema({
   name: { type: String, required: true },
   email: {
     type: String,
@@ -23,6 +23,6 @@ const userSchema = new Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
-const User = models.User || model("User", userSchema);
+const Account = models.Account || model("Account", accountSchema);
 
-export default User;
+export default Account;
