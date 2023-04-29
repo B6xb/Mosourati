@@ -20,4 +20,7 @@ a {
   .sideBar {
     @apply fixed top-0 left-0 w-[300px] m-0 h-screen flex flex-col items-center justify-center shadow-sm;
   }
+  .signInButton {
+    @apply flex flex-col items-center justify-center bg-white px-[20px] py-[10px] text-sm rounded-md hover:bg-hovering hover:text-bgPrimary duration-300 transition-all;
+  }
 }

@@ -5,6 +5,6 @@ const seacrhSchema = new Schema({
   email: { type: String, required: true },
 });
 
-const Search = models.Search || models("Search", seacrhSchema);
+const Search = models.Search || model("Search", seacrhSchema);
 
 export default Search;

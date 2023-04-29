@@ -4,13 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 const ContentComp = () => {
-  return (
-    <div className="flex flex-row justify-between p-5">
-      <ImageComp src="/../public/1.jpeg" context="Saudi Eid" />
-      <ImageComp src="/../public/2.jpeg" context="Cozy Nights" />
-      <ImageComp src="/../public/3.jpeg" context="Love" />
-    </div>
-  );
+  return <div className="flex flex-row justify-between p-5"></div>;
 };
 
 const ImageComp = (props) => {

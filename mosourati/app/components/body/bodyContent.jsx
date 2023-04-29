@@ -11,7 +11,7 @@ const MainPage = (props) => {
       <Col>
         <Navbar />
       </Col>
-      <Col className="pl-[300px] container">
+      <Col className="pl-[300px] container h-screen">
         <TopSection />
         {children}
       </Col>

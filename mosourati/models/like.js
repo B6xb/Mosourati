@@ -1,12 +1,12 @@
 import { model, models, Schema } from "mongoose";
 
 const likeSchema = new Schema({
-  account: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Account",
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
-  post: { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
+  post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
 });
 
 const Like = models.Like || model("Like", likeSchema);
