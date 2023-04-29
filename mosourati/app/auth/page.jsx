@@ -38,7 +38,7 @@ const Auth = () => {
         callbackUrl: "/",
       });
 
-      router.push("/profiles");
+      router.push(`/${email}/recents`);
     } catch (error) {
       console.log(error);
     }
