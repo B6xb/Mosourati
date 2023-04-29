@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 const Logo = () => {
   const { data: session } = useSession();
@@ -16,7 +16,7 @@ const Logo = () => {
     );
   } else {
     return (
-      <Link href="/auth">
+      <Link href="" onClick={() => signIn()}>
         <div className="py-[50px]">
           <p className="navLogo text-center">Log In</p>
         </div>

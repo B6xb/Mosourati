@@ -2,8 +2,9 @@
 
 import "./globals.css";
 import MainPage from "./components/body/bodyContent";
+import { NextAuthProvider } from "./providers";
+
 import { Nunito } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -13,9 +14,9 @@ export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
       <body className={`${font.className} bg-bgPrimary text-primray `}>
-        <SessionProvider session={session}>
+        <NextAuthProvider session={session}>
           <MainPage>{children}</MainPage>
-        </SessionProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

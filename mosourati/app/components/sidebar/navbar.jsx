@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <div className="sideBar">
       <Container>
-        <Logo name="Log In" />
+        <Logo />
         <Content />
       </Container>
     </div>

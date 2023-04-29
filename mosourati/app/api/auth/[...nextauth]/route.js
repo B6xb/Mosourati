@@ -1,21 +1,21 @@
 import NextAuth from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import prismadb from "@/lib/prismadb";
 import { compare } from "bcrypt";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     // OAuth authentication providers...
 
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
-    Credentials({
+    CredentialsProvider({
       id: "credentials",
       name: "Credentials",
       credentials: {
@@ -30,7 +30,7 @@ export default NextAuth({
       },
       async authorize(credentials) {
         // check if email and password are entered
-        if (credentials?.email || credentials?.password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and password are required");
         }
 
@@ -75,8 +75,18 @@ export default NextAuth({
     strategy: "jwt",
   },
 
-  jwt: {
-    secret: process.env.NEXTAUTH_JWT_SECRET,
+  // jwt: {
+  //   secret: "d4PsOj3S4xBFBBxfsJqecvrouFUrlrgHHoJpVdVB5gQ=",
+  // },
+
+  secret: "iWaLztE+u/vMKKGO2b+MsQCRbfpBsReVlYZp8QeFFC0=",
+
+  theme: {
+    colorScheme: "light", // "auto" | "dark" | "light"
+    brandColor: "#ffdfd3c3", // Hex color code
+    buttonText: "#1B1B1B", // Hex color code
   },
-  secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

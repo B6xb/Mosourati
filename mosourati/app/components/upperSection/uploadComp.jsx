@@ -8,8 +8,11 @@ const UploadComponent = () => {
           <input type="file" />
         </div>
         <div className="form-group">
-          <button className="btn btn-primary" type="submit">
-            Uplaod
+          <button
+            className="border-Primary border-solid border-[1px] mt-[3px] rounded-sm p-1"
+            type="submit"
+          >
+            Upload
           </button>
         </div>
       </form>
