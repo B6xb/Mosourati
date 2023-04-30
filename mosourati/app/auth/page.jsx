@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import Input from "../components/input/input";
+import Input from "../../components/input/input";
 
 const Auth = () => {
   const router = useRouter();

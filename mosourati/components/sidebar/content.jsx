@@ -8,10 +8,10 @@ const Content = () => {
   if (session) {
     return (
       <div>
-        <Link href="/">
+        <Link href={`/${session.user.name}/recents`}>
           <NavRoutes route="Recents" />
         </Link>
-        <Link href="/user/personal">
+        <Link href={`/${session.user.name}/personal`}>
           <NavRoutes route="Personal" />
         </Link>
         <Link href="" onClick={() => signOut()}>

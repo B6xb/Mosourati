@@ -86,6 +86,33 @@ export const authOptions = {
     brandColor: "#ffdfd3c3", // Hex color code
     buttonText: "#1B1B1B", // Hex color code
   },
+
+  // from the web
+  callbacks: {
+    session: ({ session, token }) => {
+      console.log("Session Callback", { session, token });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      console.log("JWT Callback", { token, user });
+      if (user) {
+        const u = user;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

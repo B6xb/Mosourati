@@ -1,6 +1,6 @@
 "use client";
 
-import { MdEmail, MdUpload } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import UploadComponent from "./uploadComp";
 

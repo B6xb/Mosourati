@@ -1,14 +1,16 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const page = () => {
-  const pathname = usePathname();
+  const { data: session } = useSession();
 
-  return (
-    <div className="flex justify-center">
-      <h1>{pathname},This is Your RECENTS</h1>
-    </div>
-  );
+  if (session) {
+    return (
+      <div className="flex justify-center capitalize">
+        <h1>{session.user.name},This is Your RECENTS</h1>
+      </div>
+    );
+  }
 };
 
 export default page;

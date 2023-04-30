@@ -8,9 +8,9 @@ const Logo = () => {
 
   if (session) {
     return (
-      <Link href="/user/recents">
+      <Link href={`/${session.user.name}/recents`}>
         <div className="py-[50px]">
-          <p className="navLogo text-center">{session.user.name}</p>
+          <p className="navLogo text-center capitalize">{session.user.name}</p>
         </div>
       </Link>
     );
