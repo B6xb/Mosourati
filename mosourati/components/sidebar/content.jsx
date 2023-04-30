@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import LogoutButton from "../buttons/logoutButton";
 
 const Content = () => {
   const { data: session } = useSession();
@@ -14,9 +15,7 @@ const Content = () => {
         <Link href={`/${session.user.name}/personal`}>
           <NavRoutes route="Personal" />
         </Link>
-        <Link href="" onClick={() => signOut()}>
-          <NavRoutes route="Sign Out" />
-        </Link>
+        <NavRoutes route={<LogoutButton />} />
       </div>
     );
   } else {

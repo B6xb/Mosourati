@@ -1,5 +1,3 @@
-import { NextApiRequest } from "next";
-import Email from "next-auth/providers/email";
 import { getSession } from "next-auth/react";
 import prismadb from "./prismadb";
 
