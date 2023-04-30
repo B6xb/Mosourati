@@ -4,13 +4,11 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/auth");
-  }
-
-  console.log("session available");
+  // if (!session) {
+  //   redirect("/auth");
+  // }
   return (
     <main>
       <ContentComp />

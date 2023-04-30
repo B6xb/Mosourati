@@ -3,13 +3,10 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 import Input from "../../components/input/input";
 
 const Auth = () => {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -22,27 +19,17 @@ const Auth = () => {
     );
   }, []);
 
-  const { data: session } = useSession();
-
-  if (session) {
-    router.push("/");
-    return null;
-  }
-
   const login = useCallback(async () => {
     try {
       await signIn("credentials", {
         email,
         password,
-        redirect: false,
         callbackUrl: "/",
       });
-
-      router.push(`/`);
     } catch (error) {
       console.log(error);
     }
-  }, [email, password, router]);
+  }, [email, password]);
 
   const register = useCallback(async () => {
     try {
