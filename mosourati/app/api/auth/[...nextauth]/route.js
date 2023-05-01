@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prismadb from "@/lib/prismadb";
 import { compare } from "bcrypt";
@@ -9,11 +8,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 export const authOptions = {
   providers: [
     // OAuth authentication providers...
-
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
 
     CredentialsProvider({
       id: "credentials",
@@ -58,7 +52,11 @@ export const authOptions = {
         }
 
         // return the user
-        return user;
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
@@ -74,12 +72,11 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
+  jwt: {
+    secret: process.env.NETXAUTH_JWT_SECRET,
+  },
 
-  // jwt: {
-  //   secret: "d4PsOj3S4xBFBBxfsJqecvrouFUrlrgHHoJpVdVB5gQ=",
-  // },
-
-  secret: "iWaLztE+u/vMKKGO2b+MsQCRbfpBsReVlYZp8QeFFC0=",
+  secret: process.env.NEXTAUHT_SECRET,
 
   theme: {
     colorScheme: "light", // "auto" | "dark" | "light"
@@ -90,7 +87,10 @@ export const authOptions = {
   // from the web
   callbacks: {
     session: ({ session, token }) => {
-      console.log("Session Callback", { session, token });
+      if (token === null) {
+        // Check if the user is signing out
+        return { ...session, user: null };
+      }
       return {
         ...session,
         user: {
@@ -102,6 +102,10 @@ export const authOptions = {
     },
     jwt: ({ token, user }) => {
       console.log("JWT Callback", { token, user });
+      if (token === null) {
+        // Check if the user is signing out
+        return { ...session, user: null };
+      }
       if (user) {
         const u = user;
         return {

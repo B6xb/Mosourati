@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 const page = () => {
@@ -16,8 +16,12 @@ const page = () => {
   }
 
   return (
-    <div className="flex justify-center capitalize">
-      <h1>{session.user.name}, This is Your PERSONAL</h1>
+    <div className="flex justify-center capitalize flex-col">
+      <h1 className="flex justify-center">
+        {session.user.name}, This is Your PERSONAL{" "}
+      </h1>
+
+      <button onClick={() => signOut({ callbackUrl: "/" })}> Sign Out</button>
     </div>
   );
 };

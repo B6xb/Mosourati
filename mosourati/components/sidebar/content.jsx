@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import LogoutButton from "../buttons/logoutButton";
+import { useSession, signOut, destroy } from "next-auth/react";
 
 const Content = () => {
   const { data: session } = useSession();
@@ -15,7 +14,9 @@ const Content = () => {
         <Link href={`/${session.user.name}/personal`}>
           <NavRoutes route="Personal" />
         </Link>
-        <NavRoutes route={<LogoutButton />} />
+        <Link href="" onClick={() => signOut({ destroy: session })}>
+          <NavRoutes route="Sign Out" />
+        </Link>
       </div>
     );
   } else {
@@ -28,12 +29,8 @@ const Content = () => {
 };
 
 // Routes component for Navbar
-const NavRoutes = ({ route, onClick }) => {
-  return (
-    <div onClick={onClick} className="navRoutes">
-      {route}
-    </div>
-  );
+const NavRoutes = ({ route }) => {
+  return <div className="navRoutes">{route}</div>;
 };
 
 export default Content;

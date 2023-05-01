@@ -1,5 +1,3 @@
-"use client";
-
 import "./globals.css";
 import MainPage from "../components/body/bodyContent";
 import { NextAuthProvider } from "./providers";

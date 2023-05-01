@@ -2,11 +2,12 @@
 
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { useSession, signIn } from "next-auth/react";
-
+import { signIn, useSession } from "next-auth/react";
 import Input from "../../components/input/input";
 
 const Auth = () => {
+  const { data: session } = useSession();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -44,60 +45,61 @@ const Auth = () => {
       console.log(error);
     }
   }, [email, name, password, login]);
-
-  return (
-    <div className="flex justify-center h-screen">
-      <div className=" p-16 self-center lg:w-2/5 lg:max-w-md rounded-md w-full">
-        <h2 className=" text-4xl mb-8 font-semibold">
-          {variant === "login" ? "Sign in" : "Register"}
-        </h2>
-        <div className="flex flex-col gap-4">
-          {variant === "register" && (
+  if (!session) {
+    return (
+      <div className="flex justify-center h-screen">
+        <div className=" p-16 self-center lg:w-2/5 lg:max-w-md rounded-md w-full">
+          <h2 className=" text-4xl mb-8 font-semibold">
+            {variant === "login" ? "Sign in" : "Register"}
+          </h2>
+          <div className="flex flex-col gap-4">
+            {variant === "register" && (
+              <Input
+                id="name"
+                type="text"
+                label="Username"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            )}
             <Input
-              id="name"
-              type="text"
-              label="Username"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="email"
+              type="email"
+              label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          )}
-          <Input
-            id="email"
-            type="email"
-            label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            id="password"
-            label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          onClick={variant === "login" ? login : register}
-          className="bg-bgThird py-3 rounded-md w-full mt-10 hover:bg-hovering hover:text-bgPrimary"
-        >
-          {variant === "login" ? "Login" : "Sign up"}
-        </button>
-
-        <p className="text-neutral-500 mt-12">
-          {variant === "login"
-            ? "First time using Mosourati?"
-            : "Already have an account?"}
-          <span
-            onClick={toggleVariant}
-            className="text-primray ml-1 hover:underline cursor-pointer"
+            <Input
+              type="password"
+              id="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button
+            onClick={variant === "login" ? login : register}
+            className="bg-bgThird py-3 rounded-md w-full mt-10 hover:bg-hovering hover:text-bgPrimary"
           >
-            {variant === "login" ? "Create an account" : "Login"}
-          </span>
-          .
-        </p>
+            {variant === "login" ? "Login" : "Sign up"}
+          </button>
+
+          <p className="text-neutral-500 mt-12">
+            {variant === "login"
+              ? "First time using Mosourati?"
+              : "Already have an account?"}
+            <span
+              onClick={toggleVariant}
+              className="text-primray ml-1 hover:underline cursor-pointer"
+            >
+              {variant === "login" ? "Create an account" : "Login"}
+            </span>
+            .
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Auth;
