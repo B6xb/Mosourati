@@ -20,8 +20,6 @@ const page = () => {
       <h1 className="flex justify-center">
         {session.user.name}, This is Your PERSONAL{" "}
       </h1>
-
-      <button onClick={() => signOut({ callbackUrl: "/" })}> Sign Out</button>
     </div>
   );
 };

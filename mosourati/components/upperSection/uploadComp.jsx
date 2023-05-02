@@ -3,9 +3,13 @@ import { MdUpload } from "react-icons/md";
 const UploadComponent = () => {
   return (
     <div className="row">
-      <form action="/api/users/user/post" method="POST">
+      <form
+        action="/api/posts/post"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div className="form-group">
-          <input type="file" />
+          <input type="file" name="file" />
         </div>
         <div className="form-group">
           <button
