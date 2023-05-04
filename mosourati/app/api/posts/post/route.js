@@ -1,18 +1,19 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-import promisify from "util";
-
-const readFileAsync = promisify(fs.readFile);
-
 export async function POST(request) {
   try {
-    const file = await readFileAsync(request.file.path);
-    const { userId } = request.body;
+    const { file, userId } = request.body;
+    if (!file) {
+      return NextResponse.json(
+        { msg: "Please enter an icon url" },
+        { status: 400 }
+      );
+    }
 
     const post = await prismadb.post.create({
       data: {
-        image: file,
+        file: file,
         user: { connect: { id: userId } },
       },
       include: {
