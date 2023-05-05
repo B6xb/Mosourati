@@ -38,6 +38,10 @@ const Auth = () => {
 
   const register = useCallback(async () => {
     try {
+      if (name === "" || email === "" || password === "") {
+        setLoginError("Missign Credintals ...");
+        throw new Error("Enter full Credentials");
+      }
       await axios.post("/api/register", {
         email,
         name,
