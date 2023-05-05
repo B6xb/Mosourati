@@ -7,6 +7,7 @@ import Input from "../../components/input/input";
 
 const Auth = () => {
   const { data: session } = useSession();
+  const [loginError, setLoginError] = useState(null);
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -22,11 +23,14 @@ const Auth = () => {
 
   const login = useCallback(async () => {
     try {
-      await signIn("credentials", {
+      const { error } = await signIn("credentials", {
+        redirect: false,
         email,
         password,
         callbackUrl: "/",
       });
+      console.log(error);
+      setLoginError(error);
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +56,7 @@ const Auth = () => {
           <h2 className=" text-4xl mb-8 font-semibold">
             {variant === "login" ? "Sign in" : "Register"}
           </h2>
+          <h1 className="text-red-500 italic">{loginError}</h1>
           <div className="flex flex-col gap-4">
             {variant === "register" && (
               <Input
