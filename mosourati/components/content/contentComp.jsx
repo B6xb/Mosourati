@@ -2,8 +2,15 @@
 
 import React from "react";
 import Image from "next/image";
+import axios from "axios";
 
+const getPosts = async () => {
+  const res = await axios.get("http://localhost:3000/posts");
+  console.log(res);
+  return res.json();
+};
 const ContentComp = () => {
+  getPosts();
   return <div className="flex flex-row justify-between p-5"></div>;
 };
 
