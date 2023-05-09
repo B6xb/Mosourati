@@ -1,5 +1,7 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
+const upload = require("@/multer");
+const cloudinary = require("@/cloudinary");
 
 export async function POST(request) {
   try {
@@ -11,13 +13,12 @@ export async function POST(request) {
       );
     }
 
+    const uploader = async (path) => await cloudinary.uploads(path, "Images");
+
     const post = await prismadb.post.create({
       data: {
         file: file,
         user: { connect: { id: userId } },
-      },
-      include: {
-        user: true,
       },
     });
 

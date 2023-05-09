@@ -1,34 +1,47 @@
 import { MdUpload } from "react-icons/md";
-import { Form, Container, Card } from "react-bootstrap";
-
-async function handleSubmit(e) {
-  e.preventDefault();
-  try {
-    let imageUrl = "";
-    if (image) {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", "presetName");
-      const dataRes = await axios.post("yourUrl", formData);
-      imageUrl = dataRes.data.url;
-    }
-
-    const submitPost = {
-      image: imageUrl,
-    };
-    console.log(selectedCommunity);
-    await axios.post("http://localhost:3000/", submitPost);
-  } catch (err) {
-    err.response.data.msg && setError(err.response.data.msg);
-  }
-}
+import axios from "axios";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 const UploadComponent = () => {
+  const { data: session } = useSession();
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("userId", session.user.id);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/create-post",
+        formData,
+        {
+          headers: {
+            accept: "application/json",
+            "Accept-Language": "en-US,en;q=0.8",
+            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="row">
-      <form action="/api/posts/post" method="POST">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <input type="file" name="file" />
+          <input type="file" name="file" onChange={handleFileChange} />
         </div>
         <div className="form-group">
           <button

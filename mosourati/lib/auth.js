@@ -1,14 +1,11 @@
-import NextAuth from "next-auth";
-
+import { compare } from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prismadb from "@/lib/prismadb";
-import { compare } from "bcrypt";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions = {
   providers: [
     // OAuth authentication providers...
-
     CredentialsProvider({
       id: "credentials",
       name: "Credentials",
@@ -60,23 +57,12 @@ export const authOptions = {
       },
     }),
   ],
-
-  pages: {
-    signIn: "/auth",
-  },
-
-  debug: process.env.NODE_ENV === "development",
-
   adapter: PrismaAdapter(prismadb),
+  secret: process.env.NEXTAUHT_SECRET,
 
   session: {
     strategy: "jwt",
   },
-  jwt: {
-    secret: process.env.NETXAUTH_JWT_SECRET,
-  },
-
-  secret: process.env.NEXTAUHT_SECRET,
 
   theme: {
     colorScheme: "light", // "auto" | "dark" | "light"
@@ -84,40 +70,49 @@ export const authOptions = {
     buttonText: "#1B1B1B", // Hex color code
   },
 
-  // from the web
+  jwt: {
+    secret: process.env.NETXAUTH_JWT_SECRET,
+  },
+
+  debug: process.env.NODE_ENV === "development",
+
+  pages: {
+    signIn: "/login",
+  },
+
   callbacks: {
-    session: ({ session, token }) => {
-      if (token === null) {
-        // Check if the user is signing out
-        return { ...session, user: null };
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
       }
       return {
         ...session,
         user: {
           ...session.user,
           id: token.id,
-          randomKey: token.randomKey,
         },
       };
     },
-    jwt: ({ token, user }) => {
-      console.log("JWT Callback", { token, user });
-      if (token === null) {
-        // Check if the user is signing out
-        return { ...session, user: null };
+    async jwt({ token, user }) {
+      console.log("JWT Callback", { token });
+      const dbUser = await prismadb.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (!dbUser) {
+        token.id = user.id;
+        return token;
       }
-      if (user) {
-        const u = user;
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        };
-      }
-      return token;
+
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+      };
     },
   },
 };
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };

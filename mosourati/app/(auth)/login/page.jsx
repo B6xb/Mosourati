@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import Input from "../../components/input/input";
+import Input from "../../../components/input/input";
 
 const Auth = () => {
   const { data: session } = useSession();
@@ -29,7 +29,7 @@ const Auth = () => {
         password,
         callbackUrl: "/",
       });
-      console.log(error);
+
       setLoginError(error);
     } catch (error) {
       console.log(error);
@@ -42,12 +42,13 @@ const Auth = () => {
         setLoginError("Missign Credintals ...");
         throw new Error("Enter full Credentials");
       }
+      console.log("started registration");
       await axios.post("/api/register", {
         email,
         name,
         password,
       });
-
+      console.log("finished registration");
       login();
     } catch (error) {
       console.log(error);
