@@ -27,7 +27,7 @@ const Auth = () => {
         redirect: false,
         email,
         password,
-        callbackUrl: "/",
+        callbackUrl: `/`,
       });
 
       setLoginError(error);

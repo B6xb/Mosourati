@@ -6,7 +6,7 @@ const page = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/auth");
+      redirect("/login");
     },
   });
   const { data: session } = useSession();
