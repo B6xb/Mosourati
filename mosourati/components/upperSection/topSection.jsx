@@ -10,7 +10,7 @@ const TopSection = () => {
   if (session) {
     return (
       <div>
-        <div className="pl-[10px] pt-[15px] pb-[10px] flex flex-row justify-between items-end">
+        <div className="pl-[10px] pt-[15px] pb-[10px] sm:justify-between flex-col flex md:flex-row  md:items-end">
           <h6 className=" flex flex-row ">
             <MdEmail size={25} className="pr-[5px]" />
             {session.user.email}
