@@ -35,6 +35,7 @@ const UploadComponent = () => {
     } catch (error) {
       console.error(error);
     }
+    document.querySelector("input").value = "";
   };
 
   return (

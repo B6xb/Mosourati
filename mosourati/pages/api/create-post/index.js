@@ -28,6 +28,7 @@ export default async (req, res) => {
         user: { connect: { id: userId } },
       },
     });
-    res.json(post, { status: 200 });
+    // res.json(post, { status: 200 });
+    return res.json(post, { status: 200 });
   });
 };
