@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
+
 const ImageComp = (props) => {
-  const { src, context } = props;
+  const { src, id } = props;
   return (
-    <div className="p-[50px]">
-      <img alt="img" width={500} height={500} className="imgComp" src={src} />
-      <h1 className="photoHeader">{context}</h1>
-    </div>
+    <Link href={`/post/${id}`} className="imgComp cursor-pointer">
+      <Image className="rounded" width={300} height={8} alt="img" src={src} />
+    </Link>
   );
 };
 

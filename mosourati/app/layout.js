@@ -1,7 +1,6 @@
 import "./globals.css";
 import MainPage from "../components/body/bodyContent";
 import { NextAuthProvider } from "./providers";
-
 import { Nunito } from "next/font/google";
 
 const font = Nunito({

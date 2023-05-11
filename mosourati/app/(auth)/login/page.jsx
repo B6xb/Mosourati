@@ -4,6 +4,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import Input from "../../../components/input/input";
+import { redirect } from "next/navigation";
 
 const Auth = () => {
   const { data: session } = useSession();
@@ -89,7 +90,7 @@ const Auth = () => {
           </div>
           <button
             onClick={variant === "login" ? login : register}
-            className="bg-bgThird py-3 rounded-md w-full mt-10 hover:bg-hovering hover:text-bgPrimary"
+            className="primaryBtn"
           >
             {variant === "login" ? "Login" : "Sign up"}
           </button>
@@ -109,6 +110,8 @@ const Auth = () => {
         </div>
       </div>
     );
+  } else {
+    redirect("/");
   }
 };
 

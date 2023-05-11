@@ -16,10 +16,12 @@ const ContentComp = () => {
   }, []);
 
   return (
-    <div className="flex flex-row justify-between p-5">
-      {posts.map((post) => (
-        <ImageComp src={post.file} key={post.id} />
-      ))}
+    <div className="flex flex-row justify-between p-5 ">
+      <div className="grid grid-cols-3 gap-4">
+        {posts.map((post) => (
+          <ImageComp id={post.id} src={post.file} key={post.id} />
+        ))}
+      </div>
     </div>
   );
 };

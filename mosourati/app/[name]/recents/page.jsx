@@ -3,13 +3,12 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 const page = () => {
-  const { status } = useSession({
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       redirect("/login");
     },
   });
-  const { data: session } = useSession();
 
   if (status === "loading") {
     return <p className="text-3xl flex flex-row justify-center">Loading....</p>;

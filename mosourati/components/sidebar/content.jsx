@@ -16,7 +16,7 @@ const Content = () => {
         </Link>
         <Link
           href=""
-          onClick={() => signOut({ redirect: false, callbackUrl: "/" })}
+          onClick={() => signOut({ redirect: false, callbackUrl: "/login" })}
         >
           <NavRoutes route="Sign Out" />
         </Link>
