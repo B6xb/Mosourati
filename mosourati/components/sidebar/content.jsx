@@ -14,10 +14,7 @@ const Content = () => {
         <Link href={`/${session.user.name}/personal`}>
           <NavRoutes route="Personal" />
         </Link>
-        <Link
-          href=""
-          onClick={() => signOut({ redirect: false, callbackUrl: "/login" })}
-        >
+        <Link href="" onClick={() => signOut({ callbackUrl: "/login" })}>
           <NavRoutes route="Sign Out" />
         </Link>
       </div>
