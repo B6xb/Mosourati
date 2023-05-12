@@ -29,7 +29,7 @@ a {
     }
   }
   .imgComp {
-    @apply bg-gradient-to-b hover:-translate-y-3 duration-500 from-stone-200 to-bgPrimary shadow-md flex justify-center items-center rounded-md;
+    @apply bg-gradient-to-b hover:scale-125 duration-500 from-stone-200 to-bgPrimary shadow-md flex justify-center items-center rounded-md;
   }
   .primaryBtn {
     @apply bg-bgThird py-3 rounded-md w-full mt-10 hover:bg-hovering hover:text-bgPrimary;

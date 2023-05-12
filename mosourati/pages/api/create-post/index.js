@@ -27,6 +27,9 @@ export default async (req, res) => {
         file: cloudinaryUrl.url,
         user: { connect: { id: userId } },
       },
+      include: {
+        user: true, // include the user relation in the result
+      },
     });
     // res.json(post, { status: 200 });
     return res.json(post, { status: 200 });
