@@ -9,6 +9,7 @@ export const config = {
 };
 
 export default async (req, res) => {
+  console.log(req.body);
   const form = new formidable.IncomingForm();
   form.uploadDir = "./public/uploads";
   form.keepExtensions = true;
